@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Personal Portfolio</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -46,37 +42,14 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .name {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+        .name { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
 
-        .contact {
-            margin-top: 20px;
-            font-size: 1.1em;
-        }
+        .contact { margin-top: 20px; font-size: 1.1em; }
+        .contact-item { margin: 10px 0; display: inline-block; margin-right: 30px; }
+        .contact-item a { color: white; text-decoration: none; transition: opacity 0.3s; }
+        .contact-item a:hover { opacity: 0.8; }
 
-        .contact-item {
-            margin: 10px 0;
-            display: inline-block;
-            margin-right: 30px;
-        }
-
-        .contact-item a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        .contact-item a:hover {
-            opacity: 0.8;
-        }
-
-        .section {
-            padding: 40px 50px;
-            color: #2c3e50;
-        }
+        .section { padding: 40px 50px; color: #2c3e50; }
 
         .section-title {
             font-size: 2em;
@@ -99,10 +72,7 @@
             border-bottom: 2px solid transparent;
             transition: border-bottom 0.3s;
         }
-
-        .about-text a:hover {
-            border-bottom: 2px solid #5a8a82;
-        }
+        .about-text a:hover { border-bottom: 2px solid #5a8a82; }
 
         .contact-icon {
             display: inline-block;
@@ -121,38 +91,6 @@
 
         .phone-icon {
             background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24"%3E%3Cpath d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/%3E%3C/svg%3E');
-        }
-
-        .resume-button {
-            display: inline-block;
-            padding: 15px 30px;
-            background: #5a8a82;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: background 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 12px rgba(90, 138, 130, 0.3);
-        }
-
-        .resume-button:hover {
-            background: #7ea9a3;
-            box-shadow: 0 6px 16px rgba(90, 138, 130, 0.4);
-        }
-
-        .resume-section {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .pdf-viewer {
-            width: 100%;
-            height: 600px;
-            border: 2px solid #d5e3e1;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            background: white;
         }
 
         .media-grid {
@@ -193,9 +131,7 @@
             line-height: 1.6;
         }
 
-        .media-links {
-            margin-bottom: 15px;
-        }
+        .media-links { margin-bottom: 15px; }
 
         .media-link {
             display: inline-block;
@@ -205,34 +141,52 @@
             font-size: 0.9em;
             transition: color 0.3s;
         }
+        .media-link:hover { color: #7ea9a3; text-decoration: underline; }
 
-        .media-link:hover {
-            color: #7ea9a3;
-            text-decoration: underline;
+        audio, video { width: 100%; border-radius: 10px; outline: none; }
+        audio { height: 54px; background: #37474f; }
+
+        audio::-webkit-media-controls-panel { background-color: #37474f; }
+        audio::-webkit-media-controls-current-time-display,
+        audio::-webkit-media-controls-time-remaining-display { color: #e0e0e0; }
+
+        .audio-player {
+            width: 100%;
+            min-height: 60px;
+            background: #37474f;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
         }
 
-        .media-image {
-            width: 100%;
+        .audio-player audio { width: 100%; height: 60px; }
+        video { background: #000; }
+
+        .youtube-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
             border-radius: 10px;
             margin-bottom: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background: #000;
         }
 
-        .image-gallery {
-            position: relative;
-            margin-bottom: 15px;
+        .youtube-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
         }
 
+        .image-gallery { position: relative; margin-bottom: 15px; }
         .gallery-image {
             width: 100%;
             border-radius: 10px;
             display: none;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
-
-        .gallery-image.active {
-            display: block;
-        }
+        .gallery-image.active { display: block; }
 
         .gallery-controls {
             display: flex;
@@ -252,28 +206,13 @@
             font-weight: bold;
             transition: background 0.3s;
         }
+        .gallery-btn:hover { background: #7ea9a3; }
+        .gallery-counter { color: #34495e; font-weight: bold; }
 
-        .gallery-btn:hover {
-            background: #7ea9a3;
-        }
-
-        .gallery-btn:disabled {
-            background: #b0bec5;
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        .gallery-counter {
-            color: #34495e;
-            font-weight: bold;
-        }
-
-        .multi-media {
-            margin-bottom: 20px;
-        }
-
-        .multi-media:last-child {
-            margin-bottom: 0;
+        .python-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .colab-link {
@@ -289,101 +228,29 @@
             box-shadow: 0 4px 12px rgba(249, 171, 0, 0.4);
             margin-bottom: 20px;
         }
-
         .colab-link:hover {
             background: #ffbb33;
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(249, 171, 0, 0.6);
         }
 
-        .side-by-side {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: start;
-            margin-bottom: 20px;
+        .action-btn {
+            display: inline-block;
+            padding: 12px 18px;
+            background: #5a8a82;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.95em;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 12px rgba(90, 138, 130, 0.25);
+            margin-right: 12px;
+            margin-bottom: 10px;
         }
-
-        .side-by-side-left {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .side-by-side-right {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .python-image {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .side-by-side {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        audio, video {
-            width: 100%;
-            border-radius: 10px;
-            outline: none;
-        }
-
-        audio {
-            height: 54px;
-            background: #37474f;
-        }
-
-        /* Enhanced audio player styling */
-        audio::-webkit-media-controls-panel {
-            background-color: #37474f;
-        }
-
-        audio::-webkit-media-controls-current-time-display,
-        audio::-webkit-media-controls-time-remaining-display {
-            color: #e0e0e0;
-        }
-
-        /* Make audio controls larger and easier to use */
-        .audio-player {
-            width: 100%;
-            min-height: 60px;
-            background: #37474f;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        .audio-player audio {
-            width: 100%;
-            height: 60px;
-        }
-
-        video {
-            background: #000;
-        }
-
-        .onedrive-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            background: #000;
-        }
-
-        .onedrive-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        .action-btn:hover { background: #7ea9a3; transform: translateY(-2px); }
+        .action-btn.secondary { background: #37474f; }
+        .action-btn.secondary:hover { background: #455a64; }
 
         .footer {
             text-align: center;
@@ -394,35 +261,20 @@
         }
 
         @media (max-width: 768px) {
-            .container {
-                margin: 0;
-                border-radius: 0;
-            }
-
-            .section {
-                padding: 30px 20px;
-            }
-
-            .name {
-                font-size: 2em;
-            }
-
-            .contact-item {
-                display: block;
-                margin: 10px 0;
-            }
-
-            .media-grid {
-                grid-template-columns: 1fr;
-            }
+            body { padding: 0; }
+            .container { margin: 0; border-radius: 0; }
+            .section { padding: 30px 20px; }
+            .name { font-size: 2em; }
+            .contact-item { display: block; margin: 10px 0; }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <!-- 头部：头像和联系方式 -->
+        <!-- Header -->
         <div class="header">
-            <img src="avatar.jpg" alt="Avatar" class="avatar" id="avatar">
+            <img src="avatar.jpg" alt="Avatar" class="avatar" id="avatar" />
             <h1 class="name">Yutian Wang</h1>
             <div class="contact">
                 <div class="contact-item">
@@ -436,276 +288,294 @@
             </div>
         </div>
 
-        <!-- 关于我 -->
+        <!-- About -->
         <div class="section">
             <h2 class="section-title">About Me</h2>
             <p class="about-text">
-                I am currently a second-year Master's student in Piano Performance at <a href="http://fsu.edu" target="_blank">Florida State University</a>. 
+                I am currently a second-year Master's student in Piano Performance at
+                <a href="http://fsu.edu" target="_blank" rel="noopener noreferrer">Florida State University</a>.
                 <br><br>
-                I started learning piano at the age of 5 from my father (a piano professor), and also studied the clarinet and viola. In high school, I became fascinated with piano improvisation, also participating in technology fairs and competitions. From 17, I began working in music production, becoming proficient in Ableton Live and Studio One, and using a DIY computer. My subsequent work in music production included electronic and pop music. I also studied audio and video editing, as well as After Effects animation. 
+                I started learning piano at the age of 5 from my father (a piano professor), and also studied the clarinet and viola.
+                In high school, I became fascinated with piano improvisation, also participating in technology fairs and competitions.
+                From 17, I began working in music production, becoming proficient in Ableton Live and Studio One, and using a DIY computer.
+                My subsequent work in music production included electronic and pop music. I also studied audio and video editing, as well as After Effects animation.
                 <br><br>
-                During my undergraduate studies, I studied calculus and linear algebra with my mother (mathematics professor). In my senior year, I became interested in code and began learning Python. During my master's studies, I explored Max for Ableton, researching music generation and visualization. I also DIY a pair of speakers and a subwoofer.
+                During my undergraduate studies, I studied calculus and linear algebra with my mother (mathematics professor).
+                In my senior year, I became interested in code and began learning Python. During my master's studies, I explored Max for Ableton,
+                researching music generation and visualization. I also DIY a pair of speakers and a subwoofer.
             </p>
         </div>
 
-        <!-- 作品展示 -->
+        <!-- Portfolio -->
         <div class="section">
             <h2 class="section-title">Portfolio</h2>
-            
+
             <div class="media-grid">
                 <!-- Project 1: Music Production -->
                 <div class="media-item">
                     <div class="media-title">Project 1: Music Production</div>
                     <div class="media-description">
-                        An original music composition showcasing production techniques and sound design. 
-                        This track demonstrates mastery of mixing, arrangement, and creative audio processing.
+                        Original track showcasing production workflow, arrangement, sound design, and mixing decisions.
+                        (Replace this text with your final project statement: concept, tools, and highlights.)
                     </div>
                     <div class="media-links">
                         <a href="music-production.mp3" class="media-link" download>Download MP3</a>
-                        <a href="YOUR_ONEDRIVE_LINK_HERE" class="media-link" target="_blank">Source Files (OneDrive)</a>
+                        <a href="YOUR_ONEDRIVE_LINK_HERE" class="media-link" target="_blank" rel="noopener noreferrer">Source Files (Link)</a>
                     </div>
                     <div class="audio-player">
                         <audio controls controlsList="nodownload">
-                            <source src="music-production.mp3" type="audio/mpeg">
+                            <source src="music-production.mp3" type="audio/mpeg" />
                             Your browser does not support audio playback.
                         </audio>
                     </div>
                 </div>
 
-                <!-- Project 2: Max Project -->
+                <!-- Project 2: Max/MSP Project A (local mp4 + zip download) -->
                 <div class="media-item">
-                    <div class="media-title">Project 2: Max/MSP Interactive Audio</div>
+                    <div class="media-title">Project 2: Max/MSP Generative Music System</div>
                     <div class="media-description">
-                        An interactive audio-visual project created in Max/MSP. 
-                        Features real-time audio synthesis and generative music algorithms.
+                        A Max/MSP generative music system exploring algorithmic processes and real-time control.
+                        Includes a demo video and a downloadable patch archive (.zip).
                     </div>
-                    <div class="media-links">
-                        <a href="YOUR_ONEDRIVE_LINK_HERE" class="media-link" target="_blank">Source Files (OneDrive)</a>
+
+                    <div style="margin: 10px 0 15px;">
+                        <a class="action-btn" href="generativemusicMaxmsp.zip" download>Download ZIP (Patch)</a>
                     </div>
-                    <div class="onedrive-container">
-                        <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
+
+                    <video controls preload="metadata">
+                        <source src="generativemusicMaxmsp.mp4" type="video/mp4" />
+                        Your browser does not support video playback.
+                    </video>
                 </div>
 
-                <!-- Project 3: Piano Performance -->
+                <!-- Project 3: Max/MSP Project B (template for second Max/MSP project) -->
                 <div class="media-item">
-                    <div class="media-title">Project 3: Piano Performance</div>
+                    <div class="media-title">Project 3: Max/MSP — (Your Second Max/MSP Project)</div>
                     <div class="media-description">
-                        A classical piano performance showcasing technical proficiency and musical expression. 
-                        Recorded in a professional studio setting with high-quality audio.
+                        Template block for your second Max/MSP project.
+                        You can embed a demo video, add a download link for the patch, and describe the system's features.
                     </div>
                     <div class="media-links">
-                        <a href="YOUR_ONEDRIVE_LINK_HERE" class="media-link" target="_blank">Source Files (OneDrive)</a>
+                        <a href="YOUR_ZIP_FILE_HERE" class="media-link" download>Download Patch (ZIP)</a>
                     </div>
-                    <div class="onedrive-container">
-                        <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
+
+                    <!-- Optional: demo video (local) -->
+                    <!--
+                    <video controls preload="metadata">
+                        <source src="maxmsp-project-2.mp4" type="video/mp4" />
+                    </video>
+                    -->
                 </div>
 
-                <!-- Project 4: 3D Printing Project -->
+                <!-- Project 4: Python Project A (existing Image -> Music) -->
                 <div class="media-item">
-                    <div class="media-title">Project 4: 3D Printing Design</div>
+                    <div class="media-title">Project 4: Python — Image to Music Generation</div>
                     <div class="media-description">
-                        A custom 3D printed design showcasing CAD modeling and fabrication skills. 
-                        From concept to finished product, demonstrating technical and creative problem-solving.
+                        A Python pipeline that converts an input image into a text description and then generates a short musical result.
+                        Implemented in Google Colab (ML-based vision + music generation).
                     </div>
-                    <div class="media-links">
-                        <a href="YOUR_ONEDRIVE_LINK_HERE" class="media-link" target="_blank">Source Files (OneDrive)</a>
-                    </div>
-                    
-                    <!-- Image Gallery -->
-                    <div class="image-gallery" id="gallery4">
-                        <img src="3d-printing-1.jpg" alt="3D Print Photo 1" class="gallery-image active">
-                        <img src="3d-printing-2.jpg" alt="3D Print Photo 2" class="gallery-image">
-                        <img src="3d-printing-3.jpg" alt="3D Print Photo 3" class="gallery-image">
-                        <img src="3d-printing-4.jpg" alt="3D Print Photo 4" class="gallery-image">
-                    </div>
-                    <div class="gallery-controls">
-                        <button class="gallery-btn" onclick="changeImage('gallery4', -1)">← Previous</button>
-                        <span class="gallery-counter">
-                            <span id="gallery4-current">1</span> / <span id="gallery4-total">4</span>
-                        </span>
-                        <button class="gallery-btn" onclick="changeImage('gallery4', 1)">Next →</button>
-                    </div>
-                </div>
 
-                <!-- Project 5: Python Project -->
-                <div class="media-item">
-                    <div class="media-title">Project 5: Image to Music Generation</div>
-                    <div class="media-description">
-                        A Python project that converts images into text descriptions, then transforms them into musical compositions using AI. 
-                        Built using Google Colab with machine learning models for image recognition and music generation.
-                    </div>
-                    
-                    <!-- Colab Link -->
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <a href="https://colab.research.google.com/drive/1Y3V_kVJh8vPPVoh2SKQWcqOYLo-nBADT?usp=sharing" class="colab-link" target="_blank">
-                            🔗 View on Google Colab
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <a href="https://colab.research.google.com/drive/1Y3V_kVJh8vPPVoh2SKQWcqOYLo-nBADT?usp=sharing"
+                           class="colab-link" target="_blank" rel="noopener noreferrer">
+                            View on Google Colab
                         </a>
                     </div>
-                    
-                    <!-- Image 1 + Audio 1 -->
-                    <div style="margin-bottom: 30px;">
-                        <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.1em;">1</p>
-                        <img src="1.jpg" alt="Python Project 1" class="python-image" style="margin-bottom: 15px;">
+
+                    <!-- Example 1 -->
+                    <div style="margin-bottom: 26px;">
+                        <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.05em;">Example 1</p>
+                        <img src="1.jpg" alt="Python Project Example 1" class="python-image" style="margin-bottom: 15px;" />
                         <div class="audio-player">
                             <audio controls controlsList="nodownload">
-                                <source src="1.wav" type="audio/wav">
+                                <source src="1.wav" type="audio/wav" />
                                 Your browser does not support audio playback.
                             </audio>
                         </div>
                     </div>
-                    
-                    <!-- Image 2 + Audio 2 -->
-                    <div style="margin-bottom: 30px;">
-                        <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.1em;">2</p>
-                        <img src="2.jpg" alt="Python Project 2" class="python-image" style="margin-bottom: 15px;">
+
+                    <!-- Example 2 -->
+                    <div style="margin-bottom: 26px;">
+                        <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.05em;">Example 2</p>
+                        <img src="2.jpg" alt="Python Project Example 2" class="python-image" style="margin-bottom: 15px;" />
                         <div class="audio-player">
                             <audio controls controlsList="nodownload">
-                                <source src="2.wav" type="audio/wav">
+                                <source src="2.wav" type="audio/wav" />
                                 Your browser does not support audio playback.
                             </audio>
                         </div>
                     </div>
-                    
-                    <!-- Image 3 + Audio 3 -->
-                    <div style="margin-bottom: 30px;">
-                        <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.1em;">3</p>
-                        <img src="4.jpg" alt="Python Project 3" class="python-image" style="margin-bottom: 15px;">
+
+                    <!-- Example 3 -->
+                    <div style="margin-bottom: 26px;">
+                        <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.05em;">Example 3</p>
+                        <img src="4.jpg" alt="Python Project Example 3" class="python-image" style="margin-bottom: 15px;" />
                         <div class="audio-player">
                             <audio controls controlsList="nodownload">
-                                <source src="4.wav" type="audio/wav">
+                                <source src="4.wav" type="audio/wav" />
                                 Your browser does not support audio playback.
                             </audio>
                         </div>
                     </div>
-                    
-                    <!-- Image 4 + Audio 4 -->
+
+                    <!-- Example 4 -->
                     <div>
-                        <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.1em;">4</p>
-                        <img src="5.jpeg" alt="Python Project 4" class="python-image" style="margin-bottom: 15px;">
+                        <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.05em;">Example 4</p>
+                        <img src="5.jpeg" alt="Python Project Example 4" class="python-image" style="margin-bottom: 15px;" />
                         <div class="audio-player">
                             <audio controls controlsList="nodownload">
-                                <source src="5.wav" type="audio/wav">
+                                <source src="5.wav" type="audio/wav" />
                                 Your browser does not support audio playback.
                             </audio>
                         </div>
                     </div>
                 </div>
 
-                <!-- Project 6: Composition with Gallery -->
+                <!-- Project 5: Python Project B (template) -->
                 <div class="media-item">
-                    <div class="media-title">Project 6: Original Composition</div>
+                    <div class="media-title">Project 5: Python — (Your Second Python Project)</div>
                     <div class="media-description">
-                        An original musical composition with sheet music. 
-                        Browse through the score pages and listen to the performance.
+                        Template block for your second Python project.
+                        You can embed a demo video, add a Colab/GitHub link, and attach images or audio examples.
+                    </div>
+                    <div class="media-links">
+                        <a href="YOUR_COLAB_OR_GITHUB_LINK_HERE" class="media-link" target="_blank" rel="noopener noreferrer">Project Link</a>
+                        <a href="YOUR_ZIP_OR_PDF_HERE" class="media-link" download>Download Files</a>
+                    </div>
+
+                    <!-- Optional: demo video (local) -->
+                    <!--
+                    <video controls preload="metadata">
+                        <source src="python-project-2.mp4" type="video/mp4" />
+                    </video>
+                    -->
+                </div>
+
+                <!-- Project 6: Python Project C (template) -->
+                <div class="media-item">
+                    <div class="media-title">Project 6: Python — (Your Third Python Project)</div>
+                    <div class="media-description">
+                        Template block for your third Python project.
+                        If you want, we can structure it like: Goal → Method → Result → What you learned.
+                    </div>
+                    <div class="media-links">
+                        <a href="YOUR_COLAB_OR_GITHUB_LINK_HERE" class="media-link" target="_blank" rel="noopener noreferrer">Project Link</a>
+                    </div>
+                </div>
+
+                <!-- Project 7: Original Composition (gallery + audio) -->
+                <div class="media-item">
+                    <div class="media-title">Project 7: Original Composition (Score + Audio)</div>
+                    <div class="media-description">
+                        An original composition presented with selected score pages and an audio rendering/performance.
                     </div>
                     <div class="media-links">
                         <a href="composition.mp3" class="media-link" download>Download MP3</a>
-                        <a href="YOUR_ONEDRIVE_LINK_HERE" class="media-link" target="_blank">Source Files (OneDrive)</a>
+                        <a href="YOUR_LINK_HERE" class="media-link" target="_blank" rel="noopener noreferrer">Source Files (Link)</a>
                     </div>
-                    
-                    <!-- Image Gallery -->
-                    <div class="multi-media">
-                        <div class="image-gallery" id="gallery6">
-                            <img src="composition-page1.jpg" alt="Score Page 1" class="gallery-image active">
-                            <img src="composition-page2.jpg" alt="Score Page 2" class="gallery-image">
-                            <img src="composition-page3.jpg" alt="Score Page 3" class="gallery-image">
-                        </div>
-                        <div class="gallery-controls">
-                            <button class="gallery-btn" onclick="changeImage('gallery6', -1)">← Previous</button>
-                            <span class="gallery-counter">
-                                <span id="gallery6-current">1</span> / <span id="gallery6-total">3</span>
-                            </span>
-                            <button class="gallery-btn" onclick="changeImage('gallery6', 1)">Next →</button>
-                        </div>
+
+                    <div class="image-gallery" id="gallery7">
+                        <img src="composition-page1.jpg" alt="Score Page 1" class="gallery-image active" />
+                        <img src="composition-page2.jpg" alt="Score Page 2" class="gallery-image" />
+                        <img src="composition-page3.jpg" alt="Score Page 3" class="gallery-image" />
                     </div>
-                    
-                    <!-- Audio Player -->
-                    <div class="multi-media">
+                    <div class="gallery-controls">
+                        <button class="gallery-btn" type="button" onclick="changeImage('gallery7', -1)">← Previous</button>
+                        <span class="gallery-counter">
+                            <span id="gallery7-current">1</span> / <span id="gallery7-total">3</span>
+                        </span>
+                        <button class="gallery-btn" type="button" onclick="changeImage('gallery7', 1)">Next →</button>
+                    </div>
+
+                    <div style="margin-top: 16px;">
                         <div class="audio-player">
                             <audio controls controlsList="nodownload">
-                                <source src="composition.mp3" type="audio/mpeg">
+                                <source src="composition.mp3" type="audio/mpeg" />
                                 Your browser does not support audio playback.
                             </audio>
                         </div>
                     </div>
                 </div>
 
-                <!-- Project 7: Recording Project -->
+                <!-- Project 8: Piano Performance (YouTube) -->
                 <div class="media-item">
-                    <div class="media-title">Project 7: Recording Project</div>
+                    <div class="media-title">Project 8: Piano Performance</div>
                     <div class="media-description">
-                        A professional recording session showcasing audio engineering and production techniques. 
-                        Demonstrates microphone placement, mixing, and post-production skills.
+                        A piano performance recording embedded from YouTube for instant playback.
                     </div>
-                    <div class="onedrive-container">
-                        <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    <div class="youtube-container">
+                        <iframe
+                            src="https://www.youtube.com/embed/4Uo0a-NaEk4"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen>
                         </iframe>
                     </div>
+                    <div class="media-links">
+                        <a href="https://youtu.be/4Uo0a-NaEk4"
+                           class="media-link" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                    </div>
                 </div>
 
+                <!-- Project 9: Recording Project (YouTube) -->
+                <div class="media-item">
+                    <div class="media-title">Project 9: Recording Project</div>
+                    <div class="media-description">
+                        A recording/engineering project demo embedded from YouTube.
+                    </div>
+                    <div class="youtube-container">
+                        <iframe
+                            src="https://www.youtube.com/embed/hTborv5u2o4"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="media-links">
+                        <a href="https://youtu.be/hTborv5u2o4"
+                           class="media-link" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- 页脚 -->
-        <div class="footer">
-            © 2025 Yutian Wang. All rights reserved.
-        </div>
+        <div class="footer">© 2025 Yutian Wang. All rights reserved.</div>
     </div>
 
     <script>
-        // 如果没有头像图片，使用默认占位符
-        document.getElementById('avatar').onerror = function() {
-            this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="150" height="150"%3E%3Crect fill="%23ddd" width="150" height="150"/%3E%3Ctext fill="%23999" font-size="40" font-family="Arial" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EAvatar%3C/text%3E%3C/svg%3E';
+        // Avatar fallback
+        document.getElementById('avatar').onerror = function () {
+            this.src =
+                'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="150" height="150"%3E%3Crect fill="%23ddd" width="150" height="150"/%3E%3Ctext fill="%23999" font-size="40" font-family="Arial" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EAvatar%3C/text%3E%3C/svg%3E';
         };
 
-        // Image gallery functionality
+        // Gallery
         function changeImage(galleryId, direction) {
             const gallery = document.getElementById(galleryId);
             const images = gallery.querySelectorAll('.gallery-image');
             let currentIndex = 0;
 
-            // Find current active image
             images.forEach((img, index) => {
-                if (img.classList.contains('active')) {
-                    currentIndex = index;
-                }
+                if (img.classList.contains('active')) currentIndex = index;
             });
 
-            // Remove active class from current image
             images[currentIndex].classList.remove('active');
 
-            // Calculate new index
             let newIndex = currentIndex + direction;
             if (newIndex < 0) newIndex = images.length - 1;
             if (newIndex >= images.length) newIndex = 0;
 
-            // Add active class to new image
             images[newIndex].classList.add('active');
 
-            // Update counter
-            document.getElementById(galleryId + '-current').textContent = newIndex + 1;
+            const currentEl = document.getElementById(galleryId + '-current');
+            if (currentEl) currentEl.textContent = String(newIndex + 1);
         }
 
-        // Initialize gallery counters
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', function () {
             const galleries = document.querySelectorAll('.image-gallery');
             galleries.forEach(gallery => {
                 const galleryId = gallery.id;
                 const images = gallery.querySelectorAll('.gallery-image');
-                document.getElementById(galleryId + '-total').textContent = images.length;
+                const totalEl = document.getElementById(galleryId + '-total');
+                if (totalEl) totalEl.textContent = String(images.length);
             });
         });
     </script>
