@@ -63,7 +63,7 @@
         .avatar {
             width: 120px;
             height: 120px;
-            border-radius: 50%;
+            border-radius: 8px;  /* 微圆角正方形 */
             margin-bottom: 28px;
             object-fit: cover;
             border: 3px solid #111;
@@ -140,7 +140,7 @@
             width: 100%;
         }
 
-        /* About Section - 保持第一版样式 */
+        /* About Section */
         .section {
             padding: 80px 0;
             animation: fadeInUp 0.8s ease-out 0.6s both;
@@ -316,7 +316,7 @@
 
         audio {
             width: 100%;
-            height: 48px;
+            height: 54px;
             outline: none;
         }
 
@@ -400,22 +400,48 @@
             transform: translateY(-2px);
         }
 
-        /* Python 项目示例 */
+        /* Python 项目示例 - 可滚动容器 */
         .examples-container {
             background: #fff;
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-top: none;
+        }
+
+        /* 自定义滚动条 */
+        .examples-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .examples-container::-webkit-scrollbar-track {
+            background: #f5f5f5;
+        }
+
+        .examples-container::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 5px;
+        }
+
+        .examples-container::-webkit-scrollbar-thumb:hover {
+            background: #999;
         }
 
         .example-item {
-            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
         }
 
-        .example-item:first-child {
-            border-top: none;
+        .example-item:last-child {
+            border-bottom: none;
         }
 
         .example-header {
             padding: 20px 32px 12px;
             background: #fafafa;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .example-title {
@@ -426,10 +452,10 @@
             text-transform: uppercase;
         }
 
+        /* 改为上下布局 - 图片在上，音频在下 */
         .example-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .example-image-wrapper {
@@ -438,12 +464,12 @@
             align-items: center;
             justify-content: center;
             padding: 32px;
-            border-right: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
         }
 
         .example-image {
             max-width: 100%;
-            max-height: 300px;
+            max-height: 280px;
             width: auto;
             height: auto;
             object-fit: contain;
@@ -451,13 +477,12 @@
 
         .example-audio-wrapper {
             background: #f5f5f5;
-            display: flex;
-            align-items: center;
-            padding: 32px;
+            padding: 24px 32px;
         }
 
         .example-audio-wrapper audio {
             width: 100%;
+            height: 54px;
         }
 
         /* 图片库 */
@@ -554,23 +579,21 @@
                 padding: 20px 24px;
             }
 
-            /* Python 示例移动端 */
-            .example-content {
-                grid-template-columns: 1fr;
+            /* 移动端示例容器 */
+            .examples-container {
+                max-height: 500px;
             }
 
             .example-image-wrapper {
-                border-right: none;
-                border-bottom: 1px solid #e0e0e0;
                 padding: 24px;
             }
 
             .example-image {
-                max-height: 250px;
+                max-height: 220px;
             }
 
             .example-audio-wrapper {
-                padding: 24px;
+                padding: 20px 24px;
             }
 
             .filter-bar {
@@ -695,14 +718,14 @@
                 </div>
             </div>
 
-            <!-- Project 4: Python - Image to Music (4个示例) -->
+            <!-- Project 4: Python - Image to Music (可滚动容器) -->
             <div class="media-item" data-category="python">
                 <div class="media-content">
                     <span class="category-tag python">Python</span>
                     <div class="media-title">Image to Music Generation</div>
                     <div class="media-description">
                         A Python pipeline that converts an input image into a text description and then generates a short musical result.
-                        Implemented in Google Colab (ML-based vision + music generation).
+                        Implemented in Google Colab (ML-based vision + music generation). Scroll to view all examples.
                     </div>
                     <a href="https://colab.research.google.com/drive/1Y3V_kVJh8vPPVoh2SKQWcqOYLo-nBADT?usp=sharing"
                        class="colab-link" target="_blank" rel="noopener noreferrer">
@@ -894,7 +917,7 @@
     <script>
         // Avatar fallback
         document.getElementById('avatar').onerror = function () {
-            this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="120" height="120"%3E%3Crect fill="%23111" width="120" height="120"/%3E%3Ctext fill="%23fff" font-size="48" font-family="Arial" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EYW%3C/text%3E%3C/svg%3E';
+            this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="120" height="120"%3E%3Crect fill="%23111" width="120" height="120" rx="8"/%3E%3Ctext fill="%23fff" font-size="48" font-family="Arial" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EYW%3C/text%3E%3C/svg%3E';
         };
 
         // Category filter
