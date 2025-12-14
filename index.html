@@ -341,7 +341,7 @@
                     </div>
                     <div class="media-links">
                         <a href="music-production.mp3" class="media-link" download>Download MP3</a>
-                        <a href="https://drive.google.com/file/d/1r9OqjrTOghqjEKF_3vaXTaUDM7-nShQV/view?usp=sharing" class="media-link" target="_blank" rel="noopener noreferrer">Source Files (Link)</a>
+                        <a href="YOUR_ONEDRIVE_LINK_HERE" class="media-link" target="_blank" rel="noopener noreferrer">Source Files (Link)</a>
                     </div>
                     <div class="audio-player">
                         <audio controls controlsList="nodownload">
@@ -351,22 +351,30 @@
                     </div>
                 </div>
 
-                <!-- Project 2: Max/MSP Project A (local mp4 + zip download) -->
+                <!-- Project 2: Max/MSP Project A (YouTube + zip download) -->
                 <div class="media-item">
                     <div class="media-title">Project 2: Max/MSP Generative Music System</div>
                     <div class="media-description">
                         A Max/MSP generative music system exploring algorithmic processes and real-time control.
-                        Includes a demo video and a downloadable patch archive (.zip).
+                        Watch the demo video below and download the patch archive to explore the system yourself.
                     </div>
 
                     <div style="margin: 10px 0 15px;">
                         <a class="action-btn" href="generativemusicMaxmsp.zip" download>Download ZIP (Patch)</a>
                     </div>
 
-                    <video controls preload="metadata">
-                        <source src="generativemusicMaxmsp.mp4" type="video/mp4" />
-                        Your browser does not support video playback.
-                    </video>
+                    <div class="youtube-container">
+                        <iframe
+                            src="https://www.youtube.com/embed/GXRnv2eA9uY"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <div class="media-links">
+                        <a href="https://youtu.be/GXRnv2eA9uY"
+                           class="media-link" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                    </div>
                 </div>
 
                 <!-- Project 3: Max/MSP Project B (template for second Max/MSP project) -->
@@ -592,7 +600,7 @@
             if (newIndex < 0) newIndex = images.length - 1;
             if (newIndex >= images.length) newIndex = 0;
 
-            images[newIndex].classList.add('active');
+            images[newIndex].classList.add('add');
 
             const currentEl = document.getElementById(galleryId + '-current');
             if (currentEl) currentEl.textContent = String(newIndex + 1);
