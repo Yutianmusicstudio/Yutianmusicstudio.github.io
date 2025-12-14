@@ -209,10 +209,26 @@
         .gallery-btn:hover { background: #7ea9a3; }
         .gallery-counter { color: #34495e; font-weight: bold; }
 
+        /* Python项目图片样式 - 限制最大高度并居中显示 */
+        .python-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 200px;
+        }
+
         .python-image {
-            width: 100%;
+            max-width: 100%;
+            max-height: 400px;
+            width: auto;
+            height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            object-fit: contain;
         }
 
         .colab-link {
@@ -266,6 +282,11 @@
             .section { padding: 30px 20px; }
             .name { font-size: 2em; }
             .contact-item { display: block; margin: 10px 0; }
+            
+            /* 移动端图片高度调整 */
+            .python-image {
+                max-height: 300px;
+            }
         }
     </style>
 </head>
@@ -385,7 +406,9 @@
                     <!-- Example 1 -->
                     <div style="margin-bottom: 26px;">
                         <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.05em;">Example 1</p>
-                        <img src="1.jpg" alt="Python Project Example 1" class="python-image" style="margin-bottom: 15px;" />
+                        <div class="python-image-container">
+                            <img src="1.jpg" alt="Python Project Example 1" class="python-image" />
+                        </div>
                         <div class="audio-player">
                             <audio controls controlsList="nodownload">
                                 <source src="1.wav" type="audio/wav" />
@@ -397,7 +420,9 @@
                     <!-- Example 2 -->
                     <div style="margin-bottom: 26px;">
                         <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.05em;">Example 2</p>
-                        <img src="2.jpg" alt="Python Project Example 2" class="python-image" style="margin-bottom: 15px;" />
+                        <div class="python-image-container">
+                            <img src="2.jpg" alt="Python Project Example 2" class="python-image" />
+                        </div>
                         <div class="audio-player">
                             <audio controls controlsList="nodownload">
                                 <source src="2.wav" type="audio/wav" />
@@ -409,7 +434,9 @@
                     <!-- Example 3 -->
                     <div style="margin-bottom: 26px;">
                         <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.05em;">Example 3</p>
-                        <img src="4.jpg" alt="Python Project Example 3" class="python-image" style="margin-bottom: 15px;" />
+                        <div class="python-image-container">
+                            <img src="4.jpg" alt="Python Project Example 3" class="python-image" />
+                        </div>
                         <div class="audio-player">
                             <audio controls controlsList="nodownload">
                                 <source src="4.wav" type="audio/wav" />
@@ -421,7 +448,9 @@
                     <!-- Example 4 -->
                     <div>
                         <p style="color: #64b5f6; margin-bottom: 10px; font-weight: bold; font-size: 1.05em;">Example 4</p>
-                        <img src="5.jpeg" alt="Python Project Example 4" class="python-image" style="margin-bottom: 15px;" />
+                        <div class="python-image-container">
+                            <img src="5.jpeg" alt="Python Project Example 4" class="python-image" />
+                        </div>
                         <div class="audio-player">
                             <audio controls controlsList="nodownload">
                                 <source src="5.wav" type="audio/wav" />
