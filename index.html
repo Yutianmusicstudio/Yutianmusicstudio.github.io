@@ -63,7 +63,7 @@
         .avatar {
             width: 120px;
             height: 120px;
-            border-radius: 8px;  /* 微圆角正方形 */
+            border-radius: 8px;
             margin-bottom: 28px;
             object-fit: cover;
             border: 3px solid #111;
@@ -261,7 +261,7 @@
             border-color: #111;
         }
 
-        /* 项目内容区 - 移除 flex-grow */
+        /* 项目内容区 */
         .media-content {
             padding: 32px;
         }
@@ -300,7 +300,7 @@
             margin-bottom: 24px;
         }
 
-        /* 媒体容器 - 添加 margin-top: auto 让它自动推到底部 */
+        /* 媒体容器 */
         .media-container {
             background: #f5f5f5;
             margin: 0;
@@ -410,7 +410,6 @@
             border-top: none;
         }
 
-        /* 自定义滚动条 */
         .examples-container::-webkit-scrollbar {
             width: 10px;
         }
@@ -453,7 +452,6 @@
             text-transform: uppercase;
         }
 
-        /* 改为上下布局 - 图片在上,音频在下 */
         .example-content {
             display: flex;
             flex-direction: column;
@@ -486,50 +484,153 @@
             height: 54px;
         }
 
-        /* 图片库 */
-        .image-gallery {
+        /* PDF 查看器样式 */
+        .pdf-viewer {
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .pdf-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: #e0e0e0;
+            padding: 1px;
+        }
+
+        .pdf-page-wrapper {
             position: relative;
-            background: #000;
-        }
-
-        .gallery-image {
-            width: 100%;
-            display: none;
-        }
-
-        .gallery-image.active {
-            display: block;
-            animation: fadeIn 0.4s;
-        }
-
-        .gallery-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 24px;
-            padding: 20px;
-            background: #f5f5f5;
-        }
-
-        .gallery-btn {
-            background: #111;
-            color: white;
-            border: none;
-            padding: 10px 20px;
+            background: #fff;
             cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .pdf-page-wrapper:hover {
+            transform: scale(1.02);
+            z-index: 10;
+        }
+
+        .pdf-page {
+            width: 100%;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .pdf-page-number {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
             font-weight: 600;
-            transition: all 0.3s;
+            pointer-events: none;
         }
 
-        .gallery-btn:hover {
-            background: #333;
-            transform: scale(1.05);
-        }
-
-        .gallery-counter {
+        .pdf-hint {
+            text-align: center;
+            padding: 12px;
+            background: #f5f5f5;
             color: #666;
+            font-size: 0.85rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* 全屏预览模态框 */
+        .pdf-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .pdf-modal.active {
+            display: flex;
+        }
+
+        .pdf-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .pdf-modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .pdf-modal-close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            background: #fff;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10000;
+        }
+
+        .pdf-modal-close:hover {
+            background: #f59e0b;
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .pdf-modal-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10000;
+        }
+
+        .pdf-modal-nav:hover {
+            background: #f59e0b;
+            color: #fff;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .pdf-modal-prev {
+            left: 30px;
+        }
+
+        .pdf-modal-next {
+            right: 30px;
+        }
+
+        .pdf-modal-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 25px;
             font-weight: 600;
-            font-size: 0.9rem;
+            z-index: 10000;
         }
 
         /* Footer */
@@ -580,7 +681,6 @@
                 padding: 20px 24px;
             }
 
-            /* 移动端示例容器 */
             .examples-container {
                 max-height: 500px;
             }
@@ -604,6 +704,32 @@
             .filter-btn {
                 padding: 10px 20px;
                 font-size: 0.85rem;
+            }
+
+            .pdf-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pdf-modal-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .pdf-modal-prev {
+                left: 15px;
+            }
+
+            .pdf-modal-next {
+                right: 15px;
+            }
+
+            .pdf-modal-close {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+                top: 15px;
+                right: 15px;
             }
         }
     </style>
@@ -666,7 +792,7 @@
                     <span class="category-tag music">Music Production</span>
                     <div class="media-title">Future Bass</div>
                     <div class="media-description">
-                        This is an original future bass electronic music track, created using Serum 2, Dune 3, ShaperBox 3, and Analog Lab V plugins.  An Ableton Live project file is included.
+                        This is an original future bass electronic music track, created using Serum 2, Dune 3, ShaperBox 3, and Analog Lab V plugins. An Ableton Live project file is included.
                     </div>
                     <div class="action-buttons">
                         <a href="music-production.mp3" class="action-btn" download>↓ Download MP3</a>
@@ -729,7 +855,7 @@
                 </div>
             </div>
 
-            <!-- Project 4: Python - Image to Music (可滚动容器) -->
+            <!-- Project 4: Python - Image to Music -->
             <div class="media-item" data-category="python">
                 <div class="media-content">
                     <span class="category-tag python">Python</span>
@@ -748,7 +874,7 @@
                         <!-- Example 1 -->
                         <div class="example-item">
                             <div class="example-header">
-                                <div class="example-title">Example 1:The Bedroom</div>
+                                <div class="example-title">Example 1: The Bedroom</div>
                             </div>
                             <div class="example-content">
                                 <div class="example-image-wrapper">
@@ -765,7 +891,7 @@
                         <!-- Example 2 -->
                         <div class="example-item">
                             <div class="example-header">
-                                <div class="example-title">Example 2:The Starry Night</div>
+                                <div class="example-title">Example 2: The Starry Night</div>
                             </div>
                             <div class="example-content">
                                 <div class="example-image-wrapper">
@@ -782,7 +908,7 @@
                         <!-- Example 3 -->
                         <div class="example-item">
                             <div class="example-header">
-                                <div class="example-title">Example 3:Chinese Shan Shui</div>
+                                <div class="example-title">Example 3: Chinese Shan Shui</div>
                             </div>
                             <div class="example-content">
                                 <div class="example-image-wrapper">
@@ -799,7 +925,7 @@
                         <!-- Example 4 -->
                         <div class="example-item">
                             <div class="example-header">
-                                <div class="example-title">Example 4:Mona Lisa</div>
+                                <div class="example-title">Example 4: Mona Lisa</div>
                             </div>
                             <div class="example-content">
                                 <div class="example-image-wrapper">
@@ -816,63 +942,34 @@
                 </div>
             </div>
 
-            <!-- Project 5: Python Project B -->
-            <div class="media-item" data-category="python">
-                <div class="media-content">
-                    <span class="category-tag python">Python</span>
-                    <div class="media-title">Second Python Project</div>
-                    <div class="media-description">
-                        Template block for your second Python project. Add Colab link, GitHub repo, or documentation.
-                    </div>
-                    <div class="action-buttons">
-                        <a href="#" class="action-btn">View Project →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 6: Python Project C -->
-            <div class="media-item" data-category="python">
-                <div class="media-content">
-                    <span class="category-tag python">Python</span>
-                    <div class="media-title">Third Python Project</div>
-                    <div class="media-description">
-                        Template block for your third Python project. Structure: Goal → Method → Result → Learning.
-                    </div>
-                    <div class="action-buttons">
-                        <a href="#" class="action-btn">View Project →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 7: Composition -->
+            <!-- Project 7: Composition with PDF Viewer -->
             <div class="media-item" data-category="composition">
                 <div class="media-content">
                     <span class="category-tag composition">Composition</span>
-                    <div class="media-title">Original Score</div>
+                    <div class="media-title">Dance</div>
                     <div class="media-description">
-                        An original composition presented with selected score pages and an audio rendering/performance.
+                        An original composition for piano. Click on any page to view it in full screen.
                     </div>
                     <div class="action-buttons">
-                        <a href="composition.mp3" class="action-btn" download>↓ Download MP3</a>
-                        <a href="#" class="action-btn secondary">Full Score →</a>
+                        <a href="dance.mp3" class="action-btn" download>↓ Download MP3</a>
+                        <a href="dance.pdf" class="action-btn secondary" target="_blank">Full Score (PDF) →</a>
                     </div>
                 </div>
                 <div class="media-container">
-                    <div class="image-gallery" id="gallery7">
-                        <img src="composition-page1.jpg" alt="Page 1" class="gallery-image active" />
-                        <img src="composition-page2.jpg" alt="Page 2" class="gallery-image" />
-                        <img src="composition-page3.jpg" alt="Page 3" class="gallery-image" />
+                    <!-- PDF Preview Grid -->
+                    <div class="pdf-viewer">
+                        <div class="pdf-grid" id="pdfGrid">
+                            <!-- PDF pages will be inserted here by JavaScript -->
+                        </div>
+                        <div class="pdf-hint">
+                            💡 Click on any page to view full screen
+                        </div>
                     </div>
-                    <div class="gallery-controls">
-                        <button class="gallery-btn" onclick="changeImage('gallery7', -1)">← Prev</button>
-                        <span class="gallery-counter">
-                            <span id="gallery7-current">1</span> / <span id="gallery7-total">3</span>
-                        </span>
-                        <button class="gallery-btn" onclick="changeImage('gallery7', 1)">Next →</button>
-                    </div>
+                    
+                    <!-- Audio Player -->
                     <div class="audio-player">
                         <audio controls>
-                            <source src="composition.mp3" type="audio/mpeg" />
+                            <source src="dance.mp3" type="audio/mpeg" />
                         </audio>
                     </div>
                 </div>
@@ -920,6 +1017,19 @@
         </div>
     </div>
 
+    <!-- PDF Modal -->
+    <div class="pdf-modal" id="pdfModal">
+        <button class="pdf-modal-close" onclick="closePDFModal()">×</button>
+        <button class="pdf-modal-nav pdf-modal-prev" onclick="navigatePDF(-1)">‹</button>
+        <button class="pdf-modal-nav pdf-modal-next" onclick="navigatePDF(1)">›</button>
+        <div class="pdf-modal-counter">
+            <span id="modalPageNum">1</span> / <span id="modalPageTotal">4</span>
+        </div>
+        <div class="pdf-modal-content">
+            <img id="modalPDFImage" class="pdf-modal-image" src="" alt="Score page" />
+        </div>
+    </div>
+
     <!-- Footer -->
     <div class="footer">
         © 2025 Yutian Wang. All rights reserved.
@@ -953,37 +1063,93 @@
             });
         });
 
-        // Gallery navigation
-        function changeImage(galleryId, direction) {
-            const gallery = document.getElementById(galleryId);
-            const images = gallery.querySelectorAll('.gallery-image');
-            let currentIndex = 0;
+        // PDF Viewer Setup
+        const pdfPages = [
+            'dance-1.jpg',
+            'dance-2.jpg',
+            'dance-3.jpg',
+            'dance-4.jpg'
+        ];
 
-            images.forEach((img, index) => {
-                if (img.classList.contains('active')) currentIndex = index;
+        let currentPDFPage = 0;
+
+        // Generate PDF grid
+        function initPDFViewer() {
+            const grid = document.getElementById('pdfGrid');
+            pdfPages.forEach((page, index) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'pdf-page-wrapper';
+                wrapper.onclick = () => openPDFModal(index);
+                
+                const img = document.createElement('img');
+                img.src = page;
+                img.alt = `Score page ${index + 1}`;
+                img.className = 'pdf-page';
+                
+                const pageNum = document.createElement('div');
+                pageNum.className = 'pdf-page-number';
+                pageNum.textContent = `Page ${index + 1}`;
+                
+                wrapper.appendChild(img);
+                wrapper.appendChild(pageNum);
+                grid.appendChild(wrapper);
             });
-
-            images[currentIndex].classList.remove('active');
-
-            let newIndex = currentIndex + direction;
-            if (newIndex < 0) newIndex = images.length - 1;
-            if (newIndex >= images.length) newIndex = 0;
-
-            images[newIndex].classList.add('active');
-
-            const currentEl = document.getElementById(galleryId + '-current');
-            if (currentEl) currentEl.textContent = String(newIndex + 1);
         }
 
-        // Initialize gallery counters
-        window.addEventListener('DOMContentLoaded', function () {
-            const galleries = document.querySelectorAll('.image-gallery');
-            galleries.forEach(gallery => {
-                const galleryId = gallery.id;
-                const images = gallery.querySelectorAll('.gallery-image');
-                const totalEl = document.getElementById(galleryId + '-total');
-                if (totalEl) totalEl.textContent = String(images.length);
-            });
+        // Open PDF modal
+        function openPDFModal(pageIndex) {
+            currentPDFPage = pageIndex;
+            const modal = document.getElementById('pdfModal');
+            const modalImg = document.getElementById('modalPDFImage');
+            const pageNum = document.getElementById('modalPageNum');
+            
+            modalImg.src = pdfPages[pageIndex];
+            pageNum.textContent = pageIndex + 1;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close PDF modal
+        function closePDFModal() {
+            const modal = document.getElementById('pdfModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Navigate PDF in modal
+        function navigatePDF(direction) {
+            currentPDFPage += direction;
+            if (currentPDFPage < 0) currentPDFPage = pdfPages.length - 1;
+            if (currentPDFPage >= pdfPages.length) currentPDFPage = 0;
+            
+            const modalImg = document.getElementById('modalPDFImage');
+            const pageNum = document.getElementById('modalPageNum');
+            
+            modalImg.src = pdfPages[currentPDFPage];
+            pageNum.textContent = currentPDFPage + 1;
+        }
+
+        // Keyboard navigation for PDF modal
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('pdfModal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') closePDFModal();
+                if (e.key === 'ArrowLeft') navigatePDF(-1);
+                if (e.key === 'ArrowRight') navigatePDF(1);
+            }
+        });
+
+        // Close modal on background click
+        document.getElementById('pdfModal').addEventListener('click', (e) => {
+            if (e.target.id === 'pdfModal') {
+                closePDFModal();
+            }
+        });
+
+        // Initialize PDF viewer on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            initPDFViewer();
+            document.getElementById('modalPageTotal').textContent = pdfPages.length;
         });
     </script>
 </body>
