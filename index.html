@@ -504,6 +504,10 @@
             cursor: pointer;
             overflow: hidden;
             transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
         }
 
         .pdf-page-wrapper:hover {
@@ -511,10 +515,10 @@
             z-index: 10;
         }
 
-        .pdf-page {
+        .pdf-page-canvas {
             width: 100%;
+            height: auto;
             display: block;
-            transition: opacity 0.3s;
         }
 
         .pdf-page-number {
@@ -528,6 +532,15 @@
             font-size: 0.75rem;
             font-weight: 600;
             pointer-events: none;
+        }
+
+        .pdf-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #999;
+            font-size: 0.9rem;
         }
 
         .pdf-hint {
@@ -562,12 +575,15 @@
             max-width: 90%;
             max-height: 90%;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .pdf-modal-image {
+        .pdf-modal-canvas {
             max-width: 100%;
             max-height: 90vh;
-            object-fit: contain;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
         }
 
         .pdf-modal-close {
@@ -951,8 +967,8 @@
                         An original composition for piano. Click on any page to view it in full screen.
                     </div>
                     <div class="action-buttons">
-                        <a href="dance.mp3" class="action-btn" download>↓ Download MP3</a>
-                        <a href="dance.pdf" class="action-btn secondary" target="_blank">Full Score (PDF) →</a>
+                        <a href="Dance.mp3" class="action-btn" download>↓ Download MP3</a>
+                        <a href="Dance.pdf" class="action-btn secondary" target="_blank">Full Score (PDF) →</a>
                     </div>
                 </div>
                 <div class="media-container">
@@ -962,7 +978,7 @@
                             <!-- PDF pages will be inserted here by JavaScript -->
                         </div>
                         <div class="pdf-hint">
-                            💡 Click on any page to view full screen
+                            💡 Click on any page to view full screen • Use arrow keys to navigate
                         </div>
                     </div>
                     
@@ -1026,7 +1042,7 @@
             <span id="modalPageNum">1</span> / <span id="modalPageTotal">4</span>
         </div>
         <div class="pdf-modal-content">
-            <img id="modalPDFImage" class="pdf-modal-image" src="" alt="Score page" />
+            <canvas id="modalPDFCanvas" class="pdf-modal-canvas"></canvas>
         </div>
     </div>
 
@@ -1034,6 +1050,9 @@
     <div class="footer">
         © 2025 Yutian Wang. All rights reserved.
     </div>
+
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
     <script>
         // Avatar fallback
@@ -1054,7 +1073,7 @@
 
                 mediaItems.forEach(item => {
                     if (category === 'all' || item.dataset.category === category) {
-                        item.style.display = 'block';
+                        item.style.display = 'flex';
                         item.style.animation = 'fadeInUp 0.6s ease-out';
                     } else {
                         item.style.display = 'none';
@@ -1063,50 +1082,86 @@
             });
         });
 
-        // PDF Viewer Setup
-        const pdfPages = [
-            'dance-1.jpg',
-            'dance-2.jpg',
-            'dance-3.jpg',
-            'dance-4.jpg'
-        ];
+        // PDF.js setup
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
+        const pdfUrl = 'Dance.pdf';
+        let pdfDoc = null;
         let currentPDFPage = 0;
+        const totalPages = 4;
 
-        // Generate PDF grid
-        function initPDFViewer() {
-            const grid = document.getElementById('pdfGrid');
-            pdfPages.forEach((page, index) => {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'pdf-page-wrapper';
-                wrapper.onclick = () => openPDFModal(index);
+        // Load PDF and render thumbnails
+        async function initPDFViewer() {
+            try {
+                pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
+                const grid = document.getElementById('pdfGrid');
                 
-                const img = document.createElement('img');
-                img.src = page;
-                img.alt = `Score page ${index + 1}`;
-                img.className = 'pdf-page';
+                // Render all 4 pages as thumbnails
+                for (let i = 1; i <= totalPages; i++) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'pdf-page-wrapper';
+                    wrapper.onclick = () => openPDFModal(i - 1);
+                    
+                    const loading = document.createElement('div');
+                    loading.className = 'pdf-loading';
+                    loading.textContent = 'Loading...';
+                    wrapper.appendChild(loading);
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.className = 'pdf-page-canvas';
+                    
+                    const pageNum = document.createElement('div');
+                    pageNum.className = 'pdf-page-number';
+                    pageNum.textContent = `Page ${i}`;
+                    
+                    wrapper.appendChild(canvas);
+                    wrapper.appendChild(pageNum);
+                    grid.appendChild(wrapper);
+                    
+                    // Render page
+                    renderPage(i, canvas, 0.5).then(() => {
+                        loading.remove();
+                    });
+                }
                 
-                const pageNum = document.createElement('div');
-                pageNum.className = 'pdf-page-number';
-                pageNum.textContent = `Page ${index + 1}`;
-                
-                wrapper.appendChild(img);
-                wrapper.appendChild(pageNum);
-                grid.appendChild(wrapper);
-            });
+                document.getElementById('modalPageTotal').textContent = totalPages;
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+                const grid = document.getElementById('pdfGrid');
+                grid.innerHTML = '<div style="padding: 40px; text-align: center; color: #999;">Unable to load PDF. Please check the file path.</div>';
+            }
+        }
+
+        // Render a PDF page to canvas
+        async function renderPage(pageNum, canvas, scale = 1.5) {
+            const page = await pdfDoc.getPage(pageNum);
+            const viewport = page.getViewport({ scale: scale });
+            
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            
+            await page.render(renderContext).promise;
         }
 
         // Open PDF modal
-        function openPDFModal(pageIndex) {
+        async function openPDFModal(pageIndex) {
             currentPDFPage = pageIndex;
             const modal = document.getElementById('pdfModal');
-            const modalImg = document.getElementById('modalPDFImage');
+            const canvas = document.getElementById('modalPDFCanvas');
             const pageNum = document.getElementById('modalPageNum');
             
-            modalImg.src = pdfPages[pageIndex];
             pageNum.textContent = pageIndex + 1;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Render high-quality version for modal
+            await renderPage(pageIndex + 1, canvas, 2.0);
         }
 
         // Close PDF modal
@@ -1117,16 +1172,16 @@
         }
 
         // Navigate PDF in modal
-        function navigatePDF(direction) {
+        async function navigatePDF(direction) {
             currentPDFPage += direction;
-            if (currentPDFPage < 0) currentPDFPage = pdfPages.length - 1;
-            if (currentPDFPage >= pdfPages.length) currentPDFPage = 0;
+            if (currentPDFPage < 0) currentPDFPage = totalPages - 1;
+            if (currentPDFPage >= totalPages) currentPDFPage = 0;
             
-            const modalImg = document.getElementById('modalPDFImage');
+            const canvas = document.getElementById('modalPDFCanvas');
             const pageNum = document.getElementById('modalPageNum');
             
-            modalImg.src = pdfPages[currentPDFPage];
             pageNum.textContent = currentPDFPage + 1;
+            await renderPage(currentPDFPage + 1, canvas, 2.0);
         }
 
         // Keyboard navigation for PDF modal
@@ -1149,7 +1204,6 @@
         // Initialize PDF viewer on page load
         window.addEventListener('DOMContentLoaded', () => {
             initPDFViewer();
-            document.getElementById('modalPageTotal').textContent = pdfPages.length;
         });
     </script>
 </body>
